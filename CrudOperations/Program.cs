@@ -1,4 +1,5 @@
 using CrudOperations.Data;
+using CrudOperations.middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<RateLimitingMiddleware>();
+app.UseMiddleware<ProfilingMiddleware>();
 
 app.MapControllers();
 
